@@ -1,5 +1,42 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container(style="margin-bottom:-20px;")
+    .facet_count_wrap
+      span.count 100
+      span.count 220
+      span.count 330
+      span.count 440
+      span.count 550
+      span.count 660
+      span.count 770
+    video#myVideo.position-relative(autoplay="" muted="" style="width:100%;")
+      source(src="/assets/video/roka_main.mp4" type="video/mp4")
+  footer
+    .container
+      .row(style='height:220px;')
+        .col-4
+            .notice-table-wrap
+              .news-table
+                .news-title
+                  span News
+                  button +MORE
+                table.table
+        .col-8
+          .data-rotate-wrap
+            .recommend-wrap
+              p +추천 기록자료
+              .row
+                .col-md-12
+                  #carouselRecommend.carousel.carousel-showmanymoveone.slide
+                    .carousel-inner
+                    a.left.carousel-control(href="#carouselRecommend" data-slide="prev")
+                      i.glyphicon.glyphicon-chevron-left
+                    a.right.carousel-control(href="#carouselRecommend" data-slide="next")
+                      i.glyphicon.glyphicon-chevron-right
+
+      .row
+        .col-7
+          img(src='/public_img/footer_info.png', width='100%')
+block append_js
+  script(src='/public_js/home.js')
