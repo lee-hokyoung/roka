@@ -1,8 +1,12 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+#main-top {
+  background-image: url("/public_img/header_back.png");
+  height: 150px;
 }
 
-a {
-  color: #00B7FF;
+#main-top section {
+  background-image: url("/public_img/header_text.png");
+  background-size: 600px 280px;
+  background-position: 100px 30px;
+  background-repeat: no-repeat;
+  height: 150px;
 }
