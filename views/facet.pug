@@ -1,0 +1,27 @@
+extends layout
+block content
+  .container
+    .row.mt-4
+      #left-facet-wrap.col-3
+        each item in left
+          .card.rounded-0
+            .card-header #{item.menu_name}
+            .card-body
+              if(['핵심키워드', '기안 보고자', '시간'].indexOf(item.menu_name) === -1)
+                each content in left_content[item.menu_name]
+                  a.btn.btn-primary.btn-link.text-left.d-block(href='#', data-role='left-facet', data-name=content.left_name, data-group=item.menu_name) #{content.left_name} 
+                    small (#{content.cnt})
+              else
+                form(onsubmit='return searchText()')
+                  .input-group
+                    input.form-control(type='text', data-role='search')
+                    .input-group-append
+                      span.input-group-text.bg-primary 
+                        i.nc-icon.nc-zoom-split.text-white
+              
+      .col-9
+block append_js
+  script(src='/public_js/facet.js')
+  script.
+    console.log(!{JSON.stringify(left)})
+    console.log('left content : ', !{JSON.stringify(left_content)})
