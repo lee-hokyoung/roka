@@ -17,58 +17,62 @@ html
             input#searchText.pl-3.font-weight-bold(type='text', placeholder='검색어를 입력하세요')
           nav.navbar
             ul.navbar-nav.flex-row.mx-auto
-              li.nav-item.dropdown
-                a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown', aria-expanded='false') 총장결재기록물
-                .dropdown-menu.dropdown-danger
-                  a.dropdown-item(href="#") 결재권자
-                  a.dropdown-item(href="#") 업무기능
-                  a.dropdown-item(href="#") 생산기관
-                  a.dropdown-item(href='#') 기안 보고자
-                  a.dropdown-item(href='#') 핵심키워드
-                  a.dropdown-item(href='#') 시간
-              li.nav-item.dropdown
-                a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown', aria-expanded='false') 정책기록
-                .dropdown-menu.dropdown-danger
-                  a.dropdown-item(href='#') 생산기관
-                  a.dropdown-item(href='#') 업무기능
-                  a.dropdown-item(href='#') 핵심키워드
-                  a.dropdown-item(href='#') 시간
-              li.nav-item.dropdown
-                a.dropdown-toggle.nav-link(data-toggle='dropdown', aria-expanded='false') 전투기록
-                .dropdown-menu.dropdown-danger
-                  a.dropdown-toggle.dropdown-item.pl-2(data-toggle='collapse', data-target='#inner_625', aria-expanded='true', aria-controls='inner_625') ① 6.25 전쟁
-                  #inner_625.collapse
-                    a.dropdown-toggle.dropdown-item.pl-3(data-toggle='collapse', data-target='#innerOrderType', aria-expanded='true', aria-controls='innerOrderType') 명령유형
-                    #innerOrderType.collapse
-                      a.dropdown-item.pl-3(href='#') - 행정명령
-                      a.dropdown-item.pl-3(href='#') - 전투명령
-                      a.dropdown-item.pl-3(href='#') - 훈령
-                    a.dropdown-toggle.dropdown-item.pl-3(data-toggle='collapse', data-target='#innerPlace', aria-expanded='true', aria-controls='innerPlace') 공간
-                    #innerPlace.collapse
-                      a.dropdown-toggle.dropdown-item.pl-3(data-toggle='collapse', data-target='#innerGangWon', aria-expanded='true', aria-controls='innerGangWon') ⊙ 강원권
-                      #innerGangWon.collapse
-                        a.dropdown-toggle.dropdown-item.pl-4(data-toggle='collapse', data-target='#region_1', aria-expanded='true', aria-controls='region_1') 철원
-                        #region_1.collapse
-                          a.dropdown-item.pl-4(href='#') - 화살머리
-                      a.dropdown-toggle.dropdown-item.pl-3(href='#') ⊙ 경기권
-                      a.dropdown-toggle.dropdown-item.pl-3(href='#') ⊙ 충청권
-                      a.dropdown-toggle.dropdown-item.pl-3(href='#') ⊙ 경상권
-                      a.dropdown-toggle.dropdown-item.pl-3(href='#') ⊙ 전라권
-                    a.dropdown-item.pl-3(href='#') 핵심키워드
-                    a.dropdown-item.pl-3(href='#') 시간
-                  a.dropdown-item.pl-2(href='#') ② 월남전
-                  a.dropdown-item.pl-2(href='#') ③ 대침투작전
-              li.nav-item.dropdown
-                a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown', aria-expanded='false') 사 · 여단기록
-                .dropdown-menu.dropdown-danger
-                  a.dropdown-item(href='#') 생산부대
-                  a.dropdown-item(href='#') 업무기능
-                  a.dropdown-item(href='#') 기안 보고자
-                  a.dropdown-item(href='#') 핵심키워드
-                  a.dropdown-item(href='#') 시간
-              li.nav-item
+              li.nav-item(class=active=='총장결재기록물'?'bg-danger':'')
+                a.nav-link(href="/facet/총장결재기록물") 총장결재기록물
+                //- a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown', aria-expanded='false') 총장결재기록물
+                //- .dropdown-menu.dropdown-danger
+                //-   a.dropdown-item(href="#") 결재권자
+                //-   a.dropdown-item(href="#") 업무기능
+                //-   a.dropdown-item(href="#") 생산기관
+                //-   a.dropdown-item(href='#') 기안 보고자
+                //-   a.dropdown-item(href='#') 핵심키워드
+                //-   a.dropdown-item(href='#') 시간
+              li.nav-item(class=active=='정책기록'?'bg-danger':'')
+                a.nav-link(href="/facet/정책기록") 정책기록
+                //- a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown', aria-expanded='false') 정책기록
+                //- .dropdown-menu.dropdown-danger
+                //-   a.dropdown-item(href='#') 생산기관
+                //-   a.dropdown-item(href='#') 업무기능
+                //-   a.dropdown-item(href='#') 핵심키워드
+                //-   a.dropdown-item(href='#') 시간
+              li.nav-item(class=active=='전투기록'?'bg-danger':'')
+                a.nav-link(href="/facet/전투기록") 전투기록
+                //- a.dropdown-toggle.nav-link(data-toggle='dropdown', aria-expanded='false') 전투기록
+                //- .dropdown-menu.dropdown-danger
+                //-   a.dropdown-toggle.dropdown-item.pl-2(data-toggle='collapse', data-target='#inner_625', aria-expanded='true', aria-controls='inner_625') ① 6.25 전쟁
+                //-   #inner_625.collapse
+                //-     a.dropdown-toggle.dropdown-item.pl-3(data-toggle='collapse', data-target='#innerOrderType', aria-expanded='true', aria-controls='innerOrderType') 명령유형
+                //-     #innerOrderType.collapse
+                //-       a.dropdown-item.pl-3(href='#') - 행정명령
+                //-       a.dropdown-item.pl-3(href='#') - 전투명령
+                //-       a.dropdown-item.pl-3(href='#') - 훈령
+                //-     a.dropdown-toggle.dropdown-item.pl-3(data-toggle='collapse', data-target='#innerPlace', aria-expanded='true', aria-controls='innerPlace') 공간
+                //-     #innerPlace.collapse
+                //-       a.dropdown-toggle.dropdown-item.pl-3(data-toggle='collapse', data-target='#innerGangWon', aria-expanded='true', aria-controls='innerGangWon') ⊙ 강원권
+                //-       #innerGangWon.collapse
+                //-         a.dropdown-toggle.dropdown-item.pl-4(data-toggle='collapse', data-target='#region_1', aria-expanded='true', aria-controls='region_1') 철원
+                //-         #region_1.collapse
+                //-           a.dropdown-item.pl-4(href='#') - 화살머리
+                //-       a.dropdown-toggle.dropdown-item.pl-3(href='#') ⊙ 경기권
+                //-       a.dropdown-toggle.dropdown-item.pl-3(href='#') ⊙ 충청권
+                //-       a.dropdown-toggle.dropdown-item.pl-3(href='#') ⊙ 경상권
+                //-       a.dropdown-toggle.dropdown-item.pl-3(href='#') ⊙ 전라권
+                //-     a.dropdown-item.pl-3(href='#') 핵심키워드
+                //-     a.dropdown-item.pl-3(href='#') 시간
+                //-   a.dropdown-item.pl-2(href='#') ② 월남전
+                //-   a.dropdown-item.pl-2(href='#') ③ 대침투작전
+              li.nav-item(class=active=='사여단기록'?'bg-danger':'')
+                a.nav-link(href="/facet/사여단기록") 사 · 여단기록
+                //- a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown', aria-expanded='false') 사 · 여단기록
+                //- .dropdown-menu.dropdown-danger
+                //-   a.dropdown-item(href='#') 생산부대
+                //-   a.dropdown-item(href='#') 업무기능
+                //-   a.dropdown-item(href='#') 기안 보고자
+                //-   a.dropdown-item(href='#') 핵심키워드
+                //-   a.dropdown-item(href='#') 시간
+              li.nav-item(class=active=='시청각'?'bg-danger':'')
                 a.nav-link(href='#') 시청각
-              li.nav-item
+              li.nav-item(class=active=='게시판'?'bg-danger':'')
                 a.nav-link(href='#') 게시판      
     block content
 
