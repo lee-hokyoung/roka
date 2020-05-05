@@ -1,0 +1,20 @@
+extends layout
+block append_css
+  link(rel='stylesheet', href='/public_css/admin_upload.css')
+block content
+  .container
+    .row.mt-4
+      .col
+        .form-group
+          label 엑셀 파일 업로드
+          input.form-control(type='file', name='excelFile', accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    .row
+      .col
+        .form-group
+          button.btn.btn-primary(type='button', name='btnRead') 파일 읽기
+          button.btn.btn-success.ml-3(type='button', name='btnUpload', data-view='false') 데이터 입력
+    .table-responsive
+      table
+
+block append_js
+  script(src='/public_js/admin_upload.js')

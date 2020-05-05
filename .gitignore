@@ -2,6 +2,9 @@ bin
 public/assets
 public/images
 node_modules
+upload_excel/
 .vscode
 doc
 package-lock.json
+*.sql
+.env

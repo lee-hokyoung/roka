@@ -1,0 +1,13 @@
+.table-responsive {
+  max-height: 800px;
+}
+table {
+  font-size: 10px;
+  white-space: nowrap;
+}
+button[data-view="false"] {
+  display: none;
+}
+button[data-view="true"] {
+  display: inline-block;
+}

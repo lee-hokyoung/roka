@@ -1,6 +1,6 @@
 .container {
-  max-width: 1170px;
-  min-width: 1170px;
+  max-width: 1280px;
+  min-width: 1280px;
 }
 
 #main-top {
@@ -94,8 +94,8 @@
   margin-left: 400px;
 }
 footer .container {
-  max-width: 1140px;
-  min-width: 1140px;
+  max-width: 1250px;
+  min-width: 1250px;
   background-image: url("/public_img/footer_back.png");
   background-size: cover;
   position: relative;
