@@ -80,7 +80,7 @@ router.all("/:title/:page?", async (req, res, next) => {
 
     /*  body 부분  */
     let page = req.params.page || 1;
-    let limit = 50;
+    let limit = req.body.limit || 20;
     sql = `SELECT * FROM
     (
       SELECT rownum as rn, ori.* FROM ${tbl_name} ori WHERE 1 = 1 ${where_query}
@@ -89,12 +89,18 @@ router.all("/:title/:page?", async (req, res, next) => {
 
     let body = await connection.execute(sql);
 
+    sql = `SELECT count(*) as cnt FROM ${tbl_name} WHERE 1 = 1 ${where_query}`;
+    let total = await connection.execute(sql);
+
     /*  body 부분  끝*/
     res.render("facet", {
       left: left_obj,
       body: body.rows,
       post: req.body,
       title: req.params.title,
+      total: total.rows[0],
+      limit: limit,
+      page: page,
     });
   } catch (err) {
     console.error(err.message);

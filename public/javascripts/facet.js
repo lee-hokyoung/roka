@@ -34,10 +34,10 @@ document.querySelectorAll('button[data-role="left-facet"]').forEach(function (v)
     if (isFiltered) return false;
     form.appendChild(input);
     form.method = "POST";
-    form.action = location.pathname;
+    //  필터를 적용할 떄는 항상 페이지를 1로 설정해준다.
+    form.action = "/facet/" + document.querySelector('input[name="title"]').value + "/1";
     document.body.appendChild(form);
     form.submit();
-    console.log("form : ", form);
   });
 });
 
@@ -57,7 +57,8 @@ filtered_list.forEach(function (i) {
     });
     form.appendChild(input);
     form.method = "POST";
-    form.action = location.pathname;
+    //  필터를 삭제할 때도 페이지를 항상 1로 설정해준다.
+    form.action = "/facet/" + document.querySelector('input[name="title"]').value + "/1";
     document.body.appendChild(form);
     form.submit();
   });
@@ -142,3 +143,25 @@ const fnCreateDetail = function (row) {
     imgWrap.append(img);
   });
 };
+//  페이지 클릭 이벤트
+document.querySelectorAll("button[data-page]").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    let title = document.querySelector('input[name="title"]').value;
+    let form = document.createElement("form");
+    form.method = "POST";
+    form.action = "/facet/" + title + "/" + this.dataset.page;
+    let input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "filter";
+    //  기존에 필터링 되어 있는 부분 확인 및 적용하기
+    let filterList = [];
+    document.querySelectorAll(".filter-wrap i").forEach(function (v) {
+      filterList.push(v.dataset.value);
+    });
+    input.value = filterList.join(";");
+    form.appendChild(input);
+    document.body.appendChild(form);
+    console.log("form : ", form);
+    form.submit();
+  });
+});
