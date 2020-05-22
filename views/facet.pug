@@ -1,11 +1,21 @@
 extends layout
 block content
   - var item_list;
+  include include/comm
   .container
+    //- title 명을 저장하는 곳
+    input(type='hidden', name='title', value=title)
     .row.mt-4
       #left-facet-wrap.col-2
-        //- posted value 저장용 input
-        input(type='hidden', name='posted_value', value=posted_value)
+        //- 필터 부분
+        if(post.filter)
+          - var filter_list = post.filter.split(';');
+          if(filter_list.length > 0)
+            .card.rounded-0.filter-wrap
+              each filter in filter_list
+                if(filter)
+                  p #{filter.split(':')[1]}
+                    i.nc-icon.nc-simple-remove.text-danger(data-value=filter)
         each list, key in left
           .card.rounded-0
             .card-header #{key}
@@ -38,16 +48,33 @@ block content
               //-       .input-group-append
               //-         span.input-group-text.bg-primary 
               //-           i.nc-icon.nc-zoom-split.text-white
-      .col-5
+      .col-4#list-part
         each item in body
-          a(href='#', data-id=item[1]) 
-            small #{item[2]}
+          a(href='#', data-id=item[eNum.id]) 
+            small #{item[eNum.item_name]}
           .border.p-2
-            label 내용이 어쩌고 저쩌고 등등등
+            label #{item[eNum.description]}
+      .col-6#detail-part
+        .row
+          .col-md-6
+            .mainImg-wrap.d-none
+              img(name='mainImg', src='', alt='')
+          .col-md-6
+            h5(name='title')
+            p.description(name='description')
+        .row
+          .col-12
+            p(data-attr='title', data-view='false') 속성정보
+            .attr-wrap
+        .row
+          .col-12.overflow-auto
+            .img-wrap
+    .pagination
 
-      .col-5
+
 block append_js
   script(src='/public_js/facet.js')
   script.
     console.log('body : ', !{JSON.stringify(body)})
     console.log('left : ', !{JSON.stringify(left)})
+    console.log('post : ', !{JSON.stringify(post)})

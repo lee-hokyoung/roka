@@ -155,3 +155,56 @@ ul.navbar-nav .nav-item:hover {
 }
 #left-facet-wrap .card-body {
 }
+.filter-wrap {
+  padding: 1rem;
+}
+.filter-wrap p i {
+  margin-left: 5px;
+  position: relative;
+  top: 1.3px;
+  cursor: pointer;
+}
+#detail-part .mainImg-wrap {
+  height: 300px;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+#detail-part img {
+}
+#detail-part p[data-attr="title"][data-view="false"] {
+  display: none;
+}
+#detail-part p[data-attr="title"][data-view="true"] {
+  display: block;
+  margin-top: 2rem;
+  font-weight: bold;
+  font-size: 17px;
+}
+#detail-part p.description[data-view="true"] {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+}
+#detail-part .row-wrap-between {
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+}
+#detail-part .row-wrap-between span:first-child {
+}
+#detail-part .row-wrap-between span:last-child {
+}
+#detail-part .img-wrap {
+  margin-top: 2rem;
+  overflow-x: auto;
+  display: inline-flex;
+}
+
+#detail-part .img-wrap img {
+  width: 170px;
+  height: 200px;
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}

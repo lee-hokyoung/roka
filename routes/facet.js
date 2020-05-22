@@ -5,22 +5,7 @@ const config = require("../config");
 
 /* GET home page. */
 router.all("/:title/:page?", async (req, res, next) => {
-  let title = req.params.title,
-    tbl_name;
-  switch (title) {
-    case "총장결재기록물":
-      tbl_name = "CEO_ARCHIVE";
-      break;
-    case "정책기록":
-      tbl_name = "POLICY_ARCHIVE";
-      break;
-    case "전투기록":
-      tbl_name = "WAR_ARCHIVE";
-      break;
-    case "사여단기록":
-      tbl_name = "GROUP_ARCHIVE";
-      break;
-  }
+  let tbl_name = config.table(req);
   let connection;
   try {
     let list = [],
@@ -34,7 +19,9 @@ router.all("/:title/:page?", async (req, res, next) => {
     let filter = req.body.filter;
     if (filter) {
       filter.split(";").forEach((v) => {
-        where_query += ` AND ${v.split(":")[0]} = '${v.split(":")[1]}'`;
+        if (v) {
+          where_query += ` AND ${v.split(":")[0]} = '${v.split(":")[1]}'`;
+        }
       });
     }
 
@@ -42,7 +29,7 @@ router.all("/:title/:page?", async (req, res, next) => {
     query_list = [
       { title: "결재권자", colName: "ceo_name" },
       { title: "업무기능", colName: "task_function" },
-      { title: "생산기관", colName: "product_org" },
+      { title: "생산기관", colName: "create_org" },
     ];
     for (var i = 0; i < query_list.length; i++) {
       list = []; // 각 facet에 넣어줄 리스트 초기화
@@ -54,6 +41,7 @@ router.all("/:title/:page?", async (req, res, next) => {
 
       //  sql 실행
       left = await connection.execute(sql);
+      //  left facet 이 결재권자일 경우 00대 카테고리를 생성해준다.
       if (query_list[i].title === "결재권자") {
         let title_list = [];
         left.rows.forEach((v) => {
@@ -75,13 +63,10 @@ router.all("/:title/:page?", async (req, res, next) => {
             });
           }
         });
+        //  이름 순으로 정렬
         list.forEach((v) => {
           v.list = v.list.sort((a, b) => {
-            return Object.keys(a) > Object.keys(b)
-              ? 1
-              : Object.keys(a) < Object.keys(b)
-              ? -1
-              : 0;
+            return Object.keys(a) > Object.keys(b) ? 1 : Object.keys(a) < Object.keys(b) ? -1 : 0;
           });
         });
       } else {
@@ -96,13 +81,21 @@ router.all("/:title/:page?", async (req, res, next) => {
     /*  body 부분  */
     let page = req.params.page || 1;
     let limit = 50;
-    sql = `SELECT * FROM ${tbl_name} WHERE ROWNUM >= ${
-      (page - 1) * limit + 1
-    } AND ROWNUM <= ${page * limit} `;
+    sql = `SELECT * FROM
+    (
+      SELECT rownum as rn, ori.* FROM ${tbl_name} ori WHERE 1 = 1 ${where_query}
+    ) row_table
+    WHERE row_table.rn BETWEEN ${(page - 1) * limit + 1} AND ${page * limit} ${where_query}`;
+
     let body = await connection.execute(sql);
 
     /*  body 부분  끝*/
-    res.render("facet", { left: left_obj, body: body.rows });
+    res.render("facet", {
+      left: left_obj,
+      body: body.rows,
+      post: req.body,
+      title: req.params.title,
+    });
   } catch (err) {
     console.error(err.message);
   } finally {

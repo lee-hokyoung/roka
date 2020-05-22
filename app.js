@@ -13,6 +13,7 @@ connect();
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const facetRouter = require("./routes/facet");
+const detailRouter = require("./routes/detail");
 const adminRouter = require("./routes/admin");
 
 // view engine setup
@@ -23,26 +24,15 @@ app.use(logger("dev"));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: false }));
 app.use(cookieParser());
-app.use(
-  "/assets",
-  express.static(path.join(__dirname, "public/assets/"), { maxAge: "30d" })
-);
-app.use(
-  "/public_img",
-  express.static(path.join(__dirname, "public/images/"), { maxAge: "30d" })
-);
-app.use(
-  "/public_js",
-  express.static(path.join(__dirname, "public/javascripts/"))
-);
-app.use(
-  "/public_css",
-  express.static(path.join(__dirname, "public/stylesheets/"))
-);
+app.use("/assets", express.static(path.join(__dirname, "public/assets/"), { maxAge: "30d" }));
+app.use("/public_img", express.static(path.join(__dirname, "public/images/"), { maxAge: "30d" }));
+app.use("/public_js", express.static(path.join(__dirname, "public/javascripts/")));
+app.use("/public_css", express.static(path.join(__dirname, "public/stylesheets/")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/facet", facetRouter);
+app.use("/detail", detailRouter);
 app.use("/admin", adminRouter);
 
 // catch 404 and forward to error handler
