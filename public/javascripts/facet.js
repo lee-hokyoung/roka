@@ -133,14 +133,46 @@ const fnCreateDetail = function (row) {
     }
   });
   //  상세 이미지 리스트
-  let imgWrap = document.querySelector(".img-wrap");
-  imgWrap.innerHTML = "";
+  let imgWrap = $(".img-wrap");
+  let fullScreen = $(".slick-fullScreen");
   let img_list = row[rowIdx["그림"]].split(",");
-  img_list.forEach(function (v) {
+  if (imgWrap.attr("class").indexOf("slick") > -1) {
+    imgWrap.slick("unslick");
+    imgWrap.html("");
+  }
+  if (fullScreen.attr("class").indexOf("slick-slide ") > -1) {
+    fullScreen.slick("unslick");
+    fullScreen.html("");
+  }
+  img_list.forEach(function (v, idx) {
+    let div = document.createElement("div");
     let img = document.createElement("img");
     img.src = "/images/" + v;
-    img.alt = v;
-    imgWrap.append(img);
+    img.alt = v + "_" + idx;
+    img.addEventListener("click", function () {
+      document.querySelector("#fullScreen").dataset.view = "true";
+      if (fullScreen.attr("class").indexOf("slick-slider") === -1) {
+        fullScreen.slick({
+          dots: true,
+          slidesPerRow: 1,
+          initialSlide: idx,
+          prevArrow: '<i class="nc-icon nc-minimal-left"></i>',
+          nextArrow: '<i class="nc-icon nc-minimal-right"></i>',
+        });
+      } else {
+        fullScreen.slick("slickGoTo", idx);
+      }
+    });
+    div.appendChild(img);
+    imgWrap.append(div);
+  });
+  imgWrap.contents().clone().appendTo(".slick-fullScreen");
+  imgWrap.slick({
+    dots: true,
+    slidesPerRow: 5,
+    rows: 2,
+    prevArrow: '<i class="nc-icon nc-minimal-left"></i>',
+    nextArrow: '<i class="nc-icon nc-minimal-right"></i>',
   });
 };
 //  페이지 클릭 이벤트
@@ -161,7 +193,12 @@ document.querySelectorAll("button[data-page]").forEach(function (btn) {
     input.value = filterList.join(";");
     form.appendChild(input);
     document.body.appendChild(form);
-    console.log("form : ", form);
     form.submit();
   });
+});
+// fullScreen 닫기
+document.querySelector("#fullScreen i.nc-icon").addEventListener("click", function () {
+  document.querySelector("#fullScreen").dataset.view = "false";
+  // fullScreen.slick("unslick");
+  // fullScreen.html("");
 });

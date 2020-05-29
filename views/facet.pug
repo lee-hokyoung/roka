@@ -1,4 +1,7 @@
 extends layout
+block append_css
+  link(rel='stylesheet', href='/nm/slick-carousel/slick/slick.css')
+  link(rel='stylesheet', href='/nm/slick-carousel/slick/slick-theme.css')
 block content
   - var item_list;
   include include/comm
@@ -67,8 +70,8 @@ block content
             p(data-attr='title', data-view='false') 속성정보
             .attr-wrap
         .row
-          .col-12.overflow-auto
-            .img-wrap
+          .col-12
+            .img-wrap.w-100
     //-   page 설정
     - var _total = total[0];
     - var totalPage = Math.ceil(_total / limit);
@@ -85,9 +88,12 @@ block content
           button.page-link(data-page=p) #{p++}
       li.page-item
         button.page-link.rounded-0(data-page='next') >
-
+  #fullScreen.position-fixed(data-view='false')
+    i.nc-icon.nc-simple-remove
+    .slick-fullScreen.w-100
 
 block append_js
   script(src='/public_js/facet.js')
+  script(src='/nm/slick-carousel/slick/slick.min.js')
   script.
     console.log('total : ', !{JSON.stringify(pageTotal)});

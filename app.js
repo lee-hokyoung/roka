@@ -28,6 +28,7 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets/"), { maxA
 app.use("/public_img", express.static(path.join(__dirname, "public/images/"), { maxAge: "30d" }));
 app.use("/public_js", express.static(path.join(__dirname, "public/javascripts/")));
 app.use("/public_css", express.static(path.join(__dirname, "public/stylesheets/")));
+app.use("/nm", express.static(path.join(__dirname, "node_modules/"), { maxAge: "30d" }));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
