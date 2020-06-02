@@ -20,7 +20,7 @@ router.all("/:title/:page?", async (req, res, next) => {
     if (filter) {
       filter.split(";").forEach((v) => {
         if (v) {
-          where_query += ` AND ${v.split(":")[0]} = '${v.split(":")[1]}'`;
+          where_query += ` AND ${v.split(":")[0]} LIKE '%${v.split(":")[1]}%'`;
         }
       });
     }
@@ -29,7 +29,7 @@ router.all("/:title/:page?", async (req, res, next) => {
     query_list = [
       { title: "결재권자", colName: "ceo_name" },
       { title: "업무기능", colName: "task_function" },
-      { title: "생산기관", colName: "create_org" },
+      // { title: "생산기관", colName: "create_org" },
     ];
     for (var i = 0; i < query_list.length; i++) {
       list = []; // 각 facet에 넣어줄 리스트 초기화

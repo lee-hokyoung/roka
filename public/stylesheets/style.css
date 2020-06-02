@@ -156,6 +156,7 @@ ul.navbar-nav .nav-item:hover {
   font-size: 13px;
 }
 #left-facet-wrap .card-body {
+  padding: 1rem 0.5rem;
 }
 .filter-wrap {
   padding: 1rem;
@@ -260,4 +261,14 @@ ul.navbar-nav .nav-item:hover {
 }
 .img-wrap .slick-arrow.nc-minimal-right {
   right: -30px;
+}
+.card-body[data-role="search"] .input-group input {
+  height: 35px;
+  border-radius: 0;
+}
+.card-body[data-role="search"] .input-group button {
+  padding: 0 0.5rem;
+  border-radius: 0;
+  border: 0;
+  line-height: 35px;
 }

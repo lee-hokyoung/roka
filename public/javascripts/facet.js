@@ -3,7 +3,6 @@ document.querySelectorAll('button[data-role="left-facet"]').forEach(function (v)
   v.addEventListener("click", function () {
     let group = this.dataset.group;
     let left_facet = this.dataset.name;
-    let isFiltered = false;
     let col_name;
     switch (group) {
       case "결재권자":
@@ -17,27 +16,7 @@ document.querySelectorAll('button[data-role="left-facet"]').forEach(function (v)
         break;
     }
     //  left facet, 관련 컬럼명 post 로 넘겨주기
-    let form = document.createElement("form");
-    let input = document.createElement("input");
-    input.type = "hidden";
-    input.name = "filter";
-    input.value = col_name + ":" + left_facet + ";";
-    //  기존에 필터링 된 부분 적용
-    let filtered_list = [];
-    document.querySelectorAll(".filter-wrap i").forEach(function (v) {
-      filtered_list.push(v.dataset.value + ";");
-    });
-    if (filtered_list.indexOf(input.value) > -1) return false;
-    filtered_list.forEach(function (v) {
-      input.value = input.value + v;
-    });
-    if (isFiltered) return false;
-    form.appendChild(input);
-    form.method = "POST";
-    //  필터를 적용할 떄는 항상 페이지를 1로 설정해준다.
-    form.action = "/facet/" + document.querySelector('input[name="title"]').value + "/1";
-    document.body.appendChild(form);
-    form.submit();
+    fnPostLeftFacet(col_name, left_facet);
   });
 });
 
@@ -199,6 +178,39 @@ document.querySelectorAll("button[data-page]").forEach(function (btn) {
 // fullScreen 닫기
 document.querySelector("#fullScreen i.nc-icon").addEventListener("click", function () {
   document.querySelector("#fullScreen").dataset.view = "false";
-  // fullScreen.slick("unslick");
-  // fullScreen.html("");
 });
+// left facet POST 로 넘기는 함수
+const fnPostLeftFacet = function (col_name, left_facet) {
+  let isFiltered = false;
+  let form = document.createElement("form");
+  let input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "filter";
+  input.value = col_name + ":" + left_facet + ";";
+  //  기존에 필터링 된 부분 적용
+  let filtered_list = [];
+  document.querySelectorAll(".filter-wrap i").forEach(function (v) {
+    filtered_list.push(v.dataset.value + ";");
+  });
+  if (filtered_list.indexOf(input.value) > -1) return false;
+  filtered_list.forEach(function (v) {
+    input.value = input.value + v;
+  });
+  if (isFiltered) return false;
+  form.appendChild(input);
+  form.method = "POST";
+  //  필터를 적용할 떄는 항상 페이지를 1로 설정해준다.
+  form.action = "/facet/" + document.querySelector('input[name="title"]').value + "/1";
+  document.body.appendChild(form);
+  form.submit();
+};
+// left facet 검색
+const fnSearch = function (item) {
+  let filter = item.querySelector('input[name="filter"]');
+  if (filter.value === "") {
+    alert("내용을 입력해 주세요.");
+    return false;
+  }
+  fnPostLeftFacet(filter.dataset.key, filter.value);
+  return false;
+};
