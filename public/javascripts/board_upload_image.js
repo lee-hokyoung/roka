@@ -64,13 +64,11 @@ class BoardUploadAdapter {
         default: response.url,
       });
     });
-
     // Upload progress when it is supported. The file loader has the #uploadTotal and #uploaded
     // properties which are used e.g. to display the upload progress bar in the editor
     // user interface.
     if (xhr.upload) {
       xhr.upload.addEventListener("progress", (evt) => {
-        console.log("upload event : ", evt);
         if (evt.lengthComputable) {
           loader.uploadTotal = evt.total;
           loader.uploaded = evt.loaded;

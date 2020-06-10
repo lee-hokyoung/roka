@@ -26,6 +26,7 @@ router.get("/list/:board_type", async (req, res) => {
     res.end();
   }
 });
+// 공지사항 글 등록 화면
 router.get("/write/:board_type", async (req, res) => {
   let tbl_name = req.params.board_type;
   let title = tbl_name === "notice" ? "공지사항" : tbl_name === "faq" ? "FAQ" : "사여단 Q&A";
@@ -38,20 +39,34 @@ router.get("/write/:board_type", async (req, res) => {
 router.post("/write/:board_type", async (req, res) => {
   let connection;
   try {
+    // 등록된 이미지가 있으면 temps 폴더에서 uploads 폴더로 이동시켜준다.
+    let imgs = req.body.imgs;
+    if (imgs.length > 0) {
+      imgs.forEach((img) => {
+        if (fs.existsSync(img)) {
+          fs.renameSync(img, img.replace("temps", "uploads"));
+        }
+      });
+    }
+
     let tbl_name = req.params.board_type;
     connection = await oracledb.getConnection(config.conn);
     let sql = `
       INSERT INTO board_${tbl_name} (id, title, writer, content, created_at) 
       VALUES (:0, :1, :2, :3, :4) `;
-    let result = await connection.execute(sql, [
-      Date.now().toString(16),
-      req.body.title,
-      req.body.writer,
-      req.body.content,
-      new Date().toISOString(),
-    ]);
+    let result = await connection.execute(
+      sql,
+      [
+        Date.now().toString(16),
+        req.body.title,
+        req.body.writer,
+        req.body.content,
+        new Date().toISOString(),
+      ],
+      { autoCommit: true }
+    );
     if (result.rowsAffected === 1) {
-      res.json({ code: 1, message: "등록 성공" });
+      res.json({ code: 1, message: "정상적으로 등록되었습니다.", sql: sql, result: result });
     } else {
       res.json({ code: 0, message: "등록 실패, 관리자에게 문의해 주세요" });
     }
@@ -76,6 +91,6 @@ const upload = multer({
 router.post("/upload/image", upload.single("upload"), async (req, res) => {
   console.log("file : ", req.file);
   let file = req.file;
-  res.json({ url: path.delimiter + file.path });
+  res.json({ url: path.sep + file.path });
 });
 module.exports = router;

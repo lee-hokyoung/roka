@@ -6,9 +6,26 @@ block content
     .row
       .col-2
         include include/board_side
-      .col-10
-        .board-header
-          #editor.w-100
+      .col-10.pt-3
+        .row
+          .col-6
+            .form-group
+              label 제목
+              input.form-control(type='text', name='title')
+          .col-6
+            .form-group
+              label 작성자
+              input.form-control(type='text', name='writer')
+        .row
+          .col-12
+            .form-group
+              label 내용
+              #editor.w-100
+        .row
+          .col-12
+            .d-flex.justify-content-between
+              button.btn.btn-primary(onclick='fnRegister("' + active + '")') 등록하기
+              button.btn.btn-danger 목록으로
 block append_js
   script(src='/assets/ckeditor5/build/ckeditor.js')
   script(src='/public_js/board_upload_image.js')
