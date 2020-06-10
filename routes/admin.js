@@ -136,11 +136,10 @@ router.post("/insertEach", async (req, res) => {
     res.json({ code: 0, message: err.message });
   }
 });
-//  파일 인서틀
+//  파일 인서트
 router.post("/insertData", async (req, res) => {
   let list = req.body.list;
   let insert_list = [],
-    sql,
     start = Date.now();
   console.log(
     "no list : ",
@@ -436,11 +435,7 @@ router.post("/insertData", async (req, res) => {
           return;
         }
         console.log(
-          "success. Inserted " +
-            list.length +
-            " rows in " +
-            (Date.now() - start) +
-            " ms."
+          "success. Inserted " + list.length + " rows in " + (Date.now() - start) + " ms."
         );
       }
     );

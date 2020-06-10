@@ -1,0 +1,13 @@
+extends layout
+block append_css
+  link(rel='stylesheet', href='/public_css/board.css')
+block content
+  .container
+    .row
+      .col-2
+        include include/board_side
+      .col-10
+        .board-header
+          h5 #{title}
+          a.btn.btn-secondary(href='/board/write/' + active) 새 글 등록
+  

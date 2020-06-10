@@ -1,0 +1,20 @@
+ul.board-side-menu {
+}
+ul.board-side-menu li {
+  border: none;
+}
+ul.board-side-menu li a {
+  width: 100%;
+}
+.board-header {
+  justify-content: space-between;
+  display: flex;
+  padding: 1rem;
+}
+.board-header h5 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: black;
+}
+.board-header button {
+}

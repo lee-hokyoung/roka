@@ -14,6 +14,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const facetRouter = require("./routes/facet");
 const detailRouter = require("./routes/detail");
+const boardRouter = require("./routes/board");
 const adminRouter = require("./routes/admin");
 
 // view engine setup
@@ -29,11 +30,13 @@ app.use("/public_img", express.static(path.join(__dirname, "public/images/"), { 
 app.use("/public_js", express.static(path.join(__dirname, "public/javascripts/")));
 app.use("/public_css", express.static(path.join(__dirname, "public/stylesheets/")));
 app.use("/nm", express.static(path.join(__dirname, "node_modules/"), { maxAge: "30d" }));
+app.use("/temps", express.static(path.join(__dirname, "temps/")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/facet", facetRouter);
 app.use("/detail", detailRouter);
+app.use("/board", boardRouter);
 app.use("/admin", adminRouter);
 
 // catch 404 and forward to error handler

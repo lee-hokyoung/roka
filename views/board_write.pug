@@ -1,0 +1,16 @@
+extends layout
+block append_css
+  link(rel='stylesheet', href='/public_css/board.css')
+block content
+  .container
+    .row
+      .col-2
+        include include/board_side
+      .col-10
+        .board-header
+          #editor.w-100
+block append_js
+  script(src='/assets/ckeditor5/build/ckeditor.js')
+  script(src='/public_js/board_upload_image.js')
+  script(src='/public_js/board.js')
+  

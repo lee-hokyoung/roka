@@ -8,3 +8,4 @@ doc
 package-lock.json
 *.sql
 .env
+temps/
